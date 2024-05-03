@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>Hello {{ logged_user.first_name }}</h1>
+            <a id="logout" href="/logout">Logout</a>
+            <a id="new" href="/trips/new">Create a new trip!</a>
+        </div>
+
+        <div id="main-content">
+            <div id='your-trips'>
+                <h3>Your trips:</h3>
+                <table>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Plan</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for trip in all_trips %}
+                    {% if logged_user == trip.created_by or logged_user in trip.joined_by.all %}
+                    <tr>
+                        <td><a href="/trips/{{ trip.id }}">{{ trip.destination }}</a></td>
+                        <td>{{ trip.start_date }}</td>
+                        <td>{{ trip.end_date }}</td>
+                        <td>{{ trip.plan }}</td>
+                        <td>
+                            {% if logged_user == trip.created_by %}
+                            <a href="trips/destroy/{{ trip.id }}">Remove</a>|
+                            <a href="trips/edit/{{ trip.id }}">Edit</a>
+                            {% else %}
+                            <a href="trips/cancel/{{ trip.id }}">Cancel</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            <div id="other-trips">
+                <h3>Other people's trips</h3>
+                <table>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Plan</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for trip in all_trips %}
+                    {% if logged_user != trip.created_by and logged_user not in trip.joined_by.all %}
+                    <tr>
+                        <td><a href="/trips/{{ trip.id }}">{{ trip.destination }}</a></td>
+                        <td>{{ trip.start_date }}</td>
+                        <td>{{ trip.end_date }}</td>
+                        <td>{{ trip.plan }}</td>
+                        <td><a href="trips/join/{{ trip.id }}">Join</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

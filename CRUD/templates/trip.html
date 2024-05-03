@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Trip</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trip.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h2>Hello {{ logged_user.first_name }}! Read about this trip!</h2>
+            <a id="dash" href="/dashboard">Dashboard</a>
+            <a id="logout" href="/logout">Logout</a>
+        </div>
+
+        <div id="main-content">
+            <h3>{{ trip.title }}</h3>
+            <div id="trip-info">
+                <p><span>Start Date:</span> {{ trip.start_date }}</p>
+                <p><span>End Date:</span> {{ trip.end_date }}</p>
+                <p><span>Created on:</span> {{ trip.created_on }}</p>
+                <p><span>Last Updated:</span> {{ trip.updated_on }}</p>
+                <p><span>Plan:</span> {{ trip.plan }}</p>
+                <p><span>Created by:</span> {{ trip.created_by.first_name }} {{ trip.created_by.last_name }}</p>
+            </div>
+            <div id="joined">
+                <p>People who've joined the trip:</p>
+                {% for user in trip.joined_by.all %}
+                <p class="joined_people">- {{ user.first_name }} {{ user.last_name }}</p>
+                {% empty %}
+                <p class="joined_people">No one has joined yet!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

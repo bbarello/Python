@@ -1,0 +1,42 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+#container {
+    width: 700px;
+    margin: auto;
+}
+#header {
+    width:100%;
+    margin-bottom: 20px;
+}
+#header * {
+    display: inline-block;
+}
+#header a{
+    vertical-align: top;
+}
+#dash {
+    margin-left: 30px;
+}
+#logout {
+    margin-left: 10px;
+}
+
+#trip-info {
+    width: 50%;
+    margin-bottom: 5px; 
+    padding: 5px;
+    border:2px solid black;
+}
+#trip-info p{
+    margin: 2px;
+}
+span{
+    font-weight: bold;
+}
+
+.joined_people {
+    margin-left: 10px;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <div id="container">
+        {% if messages %}
+        <ul>    
+            {% for message in messages %}    
+                <li class="messages" style="color: red">{{ message }}</li>    
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <form id="register" action='/register' method="POST">
+            {% csrf_token %}
+            <h1>Registration</h1>
+            <table>
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" name="registered_first_name"></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" name="registered_last_name"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" name="registered_email"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="registered_password"></td>
+                </tr>
+                <tr>
+                    <td>Confirm PW:</td>
+                    <td><input type="password" name="registered_confirm_pw"></td>
+                </tr>
+            </table>
+            <button>Register</button>
+        </form>
+
+        <form id="login" action='/login' method="POST">
+            {%csrf_token%}
+            <h1>Login</h1>
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" name="login_email"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="login_password"></td>
+                </tr> 
+            </table>
+            <button>Log In</button>
+        </form>
+    </div>
+</body>
+</html>
